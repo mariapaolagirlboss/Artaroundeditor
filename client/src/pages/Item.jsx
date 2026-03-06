@@ -1,5 +1,7 @@
+// src/pages/Item.jsx
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom' // Per tornare indietro
+import { useNavigate } from 'react-router-dom'
+import './Item.css'
 
 const LUNGHEZZE = ['3s', '15s', '40s', '1min', '4min']
 const LINGUAGGI = ['infantile', 'elementare', 'medio', 'specialistico']
@@ -11,7 +13,6 @@ const formVuoto = {
     prezzo: 0, museo: '', immagine: ''
 }
 
-// Definiamo l'URL base del server per evitare errori
 const API_URL = 'http://localhost:3000/api/items'
 
 function Item() {
@@ -23,13 +24,12 @@ function Item() {
     const [editId, setEditId] = useState(null)
     const [errore, setErrore] = useState('')
 
-    // Caricamento dati
     const carica = () => {
         fetch(API_URL)
             .then(res => res.json())
             .then(data => { setItems(data); setLoading(false) })
             .catch(() => {
-                setErrore('Impossibile connettersi al server.')
+                setErrore('Connessione al server fallita.')
                 setLoading(false)
             })
     }
@@ -46,7 +46,7 @@ function Item() {
         setErrore('')
         const url = editId ? `${API_URL}/${editId}` : API_URL
         const method = editId ? 'PUT' : 'POST'
-        
+
         try {
             const res = await fetch(url, {
                 method,
@@ -55,15 +55,12 @@ function Item() {
             })
             if (!res.ok) {
                 const err = await res.json()
-                setErrore(err.error || 'Errore nel salvataggio')
+                setErrore(err.error || 'Errore salvataggio.')
                 return
             }
-            setForm(formVuoto)
-            setEditId(null)
-            setMostraForm(false)
-            carica()
+            setForm(formVuoto); setEditId(null); setMostraForm(false); carica()
         } catch {
-            setErrore('Errore di rete — il server è avviato?')
+            setErrore('Errore di rete.')
         }
     }
 
@@ -75,100 +72,99 @@ function Item() {
     }
 
     const handleDelete = async id => {
-        if (!confirm('Eliminare questo item?')) return
-        try {
-            await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
-            carica()
-        } catch {
-            alert("Errore durante l'eliminazione")
-        }
+        if (!confirm('Eliminare definitivamente?')) return
+        await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+        carica()
     }
 
-    if (loading) return <div className="page-container" style={{paddingTop: '100px'}}>Caricamento...</div>
+    if (loading) return (
+        <div className="item-page">
+            <p className="empty-msg">Caricamento...</p>
+        </div>
+    )
 
     return (
-        <div className="page-container" style={{ paddingTop: '100px', paddingBottom: '50px' }}>
-            
-            {/* TASTO TORNA INDIETRO */}
-            <button 
-                onClick={() => navigate('/')} 
-                className="btn-secondary" 
-                style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}
-            >
-                ← Torna al Menu
-            </button>
+        <div className="item-page">
+
+            {/* TASTO INDIETRO */}
+            <div className="nav-container">
+                <button onClick={() => navigate('/')} className="btn-back">
+                    ← Torna al Menu Principale
+                </button>
+            </div>
 
             {/* HEADER */}
-            <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                <h2 style={{ fontFamily: 'Poppins', fontWeight: 700, fontSize: '2rem', color: '#325a2d' }}>🎨 Gestione Item</h2>
+            <header className="header-center">
+                <h2>Gestione Catalogo</h2>
                 <button className="btn-primary" onClick={() => {
                     setMostraForm(!mostraForm)
                     setEditId(null)
                     setForm(formVuoto)
                 }}>
-                    {mostraForm ? '✕ Chiudi' : '+ Nuovo Item'}
+                    {mostraForm ? '✕ Chiudi Form' : '+ Nuovo Item'}
                 </button>
-            </div>
+            </header>
 
             {/* FORM */}
             {mostraForm && (
-                <form className="card form-card" onSubmit={handleSubmit} style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(10px)', padding: '25px', borderRadius: '20px', marginBottom: '40px', boxShadow: '0 8px 32px rgba(0,0,0,0.1)' }}>
-                    <h3 style={{ marginBottom: '20px' }}>{editId ? '✏️ Modifica Item' : '➕ Nuovo Item'}</h3>
-                    {errore && <p className="errore" style={{ color: 'red', background: '#ffe6e6', padding: '10px', borderRadius: '8px' }}>{errore}</p>}
+                <form className="form-card" onSubmit={handleSubmit}>
+                    <h3>{editId ? 'Modifica Opera' : '➕ Nuova Opera'}</h3>
+                    {errore && <p className="errore-box">{errore}</p>}
 
-                    <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
-                        <label>Titolo *
-                            <input name="titolo" value={form.titolo} onChange={handleChange} required style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #ccc' }} />
-                        </label>
-                        <label>Museo *
-                            <input name="museo" value={form.museo} onChange={handleChange} required style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #ccc' }} />
-                        </label>
-                        <label>Lunghezza *
-                            <select name="lunghezza" value={form.lunghezza} onChange={handleChange} style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #ccc' }}>
+                    <div className="form-grid">
+                        <div className="form-group">
+                            <label>Titolo dell'Opera *</label>
+                            <input name="titolo" value={form.titolo} onChange={handleChange} required className="form-input" />
+                        </div>
+                        <div className="form-group">
+                            <label>Museo / Collezione *</label>
+                            <input name="museo" value={form.museo} onChange={handleChange} required className="form-input" />
+                        </div>
+                        <div className="form-group">
+                            <label>Lunghezza *</label>
+                            <select name="lunghezza" value={form.lunghezza} onChange={handleChange} className="form-select">
                                 {LUNGHEZZE.map(l => <option key={l}>{l}</option>)}
                             </select>
-                        </label>
-                        <label>Linguaggio *
-                            <select name="linguaggio" value={form.linguaggio} onChange={handleChange} style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #ccc' }}>
+                        </div>
+                        <div className="form-group">
+                            <label>Linguaggio *</label>
+                            <select name="linguaggio" value={form.linguaggio} onChange={handleChange} className="form-select">
                                 {LINGUAGGI.map(l => <option key={l}>{l}</option>)}
                             </select>
-                        </label>
-                        {/* Aggiungi qui gli altri campi se necessario */}
+                        </div>
                     </div>
 
-                    <label style={{marginTop: '1.5rem', display: 'block'}}>Testo *
-                        <textarea name="testo" value={form.testo} onChange={handleChange} rows={5} required style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ccc', marginTop: '5px' }} />
-                    </label>
+                    <div className="form-group" style={{ marginTop: '20px' }}>
+                        <label>Testo Descrittivo *</label>
+                        <textarea name="testo" value={form.testo} onChange={handleChange} rows={5} required className="form-textarea" />
+                    </div>
 
-                    <div className="form-actions" style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-                        <button type="submit" className="btn-primary" style={{ background: '#466e41', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer' }}>
-                            {editId ? '💾 Salva modifiche' : '✅ Crea Item'}
-                        </button>
-                        <button type="button" className="btn-secondary" onClick={() => setMostraForm(false)} style={{ padding: '10px 20px', borderRadius: '8px', cursor: 'pointer' }}>
-                            Annulla
-                        </button>
+                    <div className="form-actions">
+                        <button type="button" className="btn-secondary" onClick={() => setMostraForm(false)}>Annulla</button>
+                        <button type="submit" className="btn-primary">{editId ? 'Salva Modifiche' : 'Crea'}</button>
                     </div>
                 </form>
             )}
 
-            {/* LISTA GRID */}
+            {/* GRIGLIA */}
             {items.length === 0
-                ? <p style={{color:'#888', textAlign: 'center', marginTop: '50px'}}>Nessun item ancora. Creane uno! 🎨</p>
+                ? <p className="empty-msg">Nessun item trovato. Inizia ora!</p>
                 : (
-                    <div className="grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+                    <div className="item-grid">
                         {items.map(item => (
-                            <div key={item._id} className="card" style={{ background: 'white', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column' }}>
-                                <div className="card-body" style={{ padding: '20px', flexGrow: 1 }}>
-                                    <h3 style={{ marginBottom: '10px', fontFamily: 'Poppins' }}>{item.titolo}</h3>
-                                    <div style={{ display: 'flex', gap: '5px', marginBottom: '10px' }}>
-                                        <span style={{ background: '#eef2ed', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>{item.lunghezza}</span>
-                                        <span style={{ background: '#eef2ed', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>{item.linguaggio}</span>
+                            <div key={item._id} className="item-card">
+                                <div className="card-body">
+                                    <h3>{item.titolo}</h3>
+                                    <div className="card-tags">
+                                        <span className="tag">{item.lunghezza}</span>
+                                        <span className="tag">{item.linguaggio}</span>
                                     </div>
-                                    <p style={{ fontSize: '0.9rem', color: '#666' }}>{item.testo.substring(0, 100)}...</p>
+                                    <p className="card-text">{item.testo.substring(0, 100)}...</p>
+                                    <p className="card-meta">📍 {item.museo}</p>
                                 </div>
-                                <div className="card-actions" style={{ padding: '15px', borderTop: '1px solid #eee', display: 'flex', justifyContent: 'space-between' }}>
-                                    <button onClick={() => handleEdit(item)} style={{ background: 'none', border: 'none', color: '#466e41', cursor: 'pointer', fontWeight: 600 }}>✏️ Modifica</button>
-                                    <button onClick={() => handleDelete(item._id)} style={{ background: 'none', border: 'none', color: '#d9534f', cursor: 'pointer', fontWeight: 600 }}>🗑️ Elimina</button>
+                                <div className="card-footer">
+                                    <button onClick={() => handleEdit(item)} className="btn-text-edit">Modifica</button>
+                                    <button onClick={() => handleDelete(item._id)} className="btn-text-delete">Elimina</button>
                                 </div>
                             </div>
                         ))}

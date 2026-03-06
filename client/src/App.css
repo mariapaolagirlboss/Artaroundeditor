@@ -9,25 +9,40 @@
 body {
     min-height: 100vh;
     margin: 0;
-    /* Il tuo gradiente originale */
     background: linear-gradient(135deg, #f0f5ee 0%, #e4ede0 50%, #d8e8d2 100%);
     background-attachment: fixed;
     position: relative;
-    
-    /* Applica Poppins correttamente */
     font-family: 'Poppins', sans-serif !important;
-    
     color: #333;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Applica il font anche a tutti gli elementi di testo per sicurezza */
 button, input, select, textarea, span, a {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Stile specifico per la Navbar che abbiamo creato */
+/* ─── FIX CENTRAMENTO ─── */
+#app {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;         /* ← #app sopra le bolle ma le bolle restano visibili */
+}
+
+.main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+/* ───────────────────────── */
+
 #topnav span {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -35,34 +50,32 @@ button, input, select, textarea, span, a {
   margin-top: 5px;
 }
 
-/* Stile per la Topbar */
 .topbar-logo {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
 
-/* Assicurati che il contenuto sia sopra le bolle */
-#app, .container, nav {
+/* ← RIMOSSA la riga "#app, .container, nav" che creava conflitti */
+.container, nav {
     position: relative;
     z-index: 1;
 }
 
-
-/* Overlay sfumato sopra la foto */
+/* Overlay sfumato - ABBASSATO a z-index: -1 */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     background: linear-gradient(135deg,
-        rgba(210, 180, 140, 0.3) 0%,
-        rgba(188, 155, 110, 0.2) 100%
+        rgba(210, 180, 140, 0.15) 0%,
+        rgba(188, 155, 110, 0.1) 100%
     );
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;   /* ← era 0, abbassato per non coprire le bolle */
 }
 
-/* Cerchio decorativo 1 */
+/* Cerchio decorativo */
 body::after {
     content: '';
     position: fixed;
@@ -73,28 +86,17 @@ body::after {
     top: -150px;
     right: -100px;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;   /* ← era 0 */
 }
 
-/* Assicurati che il contenuto sia sopra gli effetti */
-#app, .container, nav {
-    position: relative;
-    z-index: 1;
-}
-
-#bolle {
-    filter: blur(3px);
-}
-
-
-
+/* ── MENU CENTRALE ── */
 #topnav {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);  /* centrato nella pagina */
+    transform: translate(-50%, -50%);
     display: grid;
-    grid-template-columns: 1fr 1fr;   
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(12px);
@@ -102,7 +104,7 @@ body::after {
     border-radius: 24px;
     padding: 16px 20px;
     z-index: 10;
-    width: 850px; /* larghezza*/
+    width: 850px;
     box-shadow: 0 8px 32px rgba(90, 120, 80, 0.15);
 }
 
@@ -121,11 +123,11 @@ body::after {
 
 .nav-item span {
     font-family: 'Poppins', sans-serif;
-    font-weight: 600; /* Aumentato da 500 a 600 */
-    font-size: 1rem;  /* Aumentato leggermente (circa 16px) */
+    font-weight: 600;
+    font-size: 1rem;
     letter-spacing: 0.5px;
-    margin-top: 12px; /* Più spazio dall'icona */
-    color: rgba(50, 90, 45, 0.9); /* Un verde più scuro per il testo */
+    margin-top: 12px;
+    color: rgba(50, 90, 45, 0.9);
 }
 
 .nav-item i {
@@ -153,13 +155,13 @@ body::after {
     position: relative;
     z-index: 1;
     padding: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-
-/*fine menu quadrato*/
-
-/*Inizio Topbar*/
-
+/* ── TOPBAR ── */
 #topbar {
     position: fixed;
     top: 0;
@@ -200,5 +202,3 @@ body::after {
     background: rgba(255, 255, 255, 0.55);
     transform: scale(1.05);
 }
-
-/*Fine topbar*/
