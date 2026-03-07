@@ -1,18 +1,54 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ArtAround Editor</title>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArtAround Editore</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;500;600;700&display=swap" 
+        rel="stylesheet">
+
+
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-spacer-left"></div>
+
+      <h1 class="logo">ArtAround <span>Editore</span></h1>
+
+      <button class="user-icon-btn" type="button">
+        <i class="fa-solid fa-user"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <nav id="menu-grid">
+      <a href="#" class="nav-card active" data-section="musei">
+        <i class="fa-solid fa-landmark"></i>
+        <span class="label">Musei</span>
+      </a>
+      <a href="#" class="nav-card" data-section="visite">
+        <i class="fa-solid fa-map"></i>
+        <span class="label">Visite</span>
+      </a>
+      <a href="#" class="nav-card" data-section="opere">
+        <i class="fa-solid fa-palette"></i>
+        <span class="label">Opere</span>
+      </a>
+      <a href="#" class="nav-card" data-section="utenti">
+        <i class="fa-solid fa-user-pen"></i>
+        <span class="label">Utenti</span>
+      </a>
+    </nav>
+  </main>
+
+  <script src="js/menu.js"></script>
+</body>
 </html>
+
