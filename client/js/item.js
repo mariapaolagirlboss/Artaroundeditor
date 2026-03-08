@@ -1,8 +1,5 @@
 // Database locale temporaneo (Array semplice)
-let currentItems = [
-    { id: '1', operaId: 'La Nascita di Venere', museo: 'Uffizi', linguaggio: 'medio', lunghezza: '1min', testo: 'Descrizione classica del Botticelli...' },
-    { id: '2', operaId: 'Il David', museo: 'Accademia', linguaggio: 'infantile', lunghezza: '15s', testo: 'Ciao! Sono la statua più famosa del mondo.' }
-];
+let currentItems = JSON.parse(localStorage.getItem('artAroundItems')) || [];
 
 let editingId = null;
 
@@ -29,7 +26,7 @@ function renderItems(data = currentItems) {
     container.innerHTML = '';
     
     if (data.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #4a7c5f;">Nessun item trovato.</p>';
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #4a7c5f;">Nessuna opera trovata.</p>';
         return;
     }
     
@@ -80,7 +77,7 @@ function closeModal() {
     editingId = null;
 }
 
-// CRUD Locale (Solo array)
+// CRUD 
 function deleteItem(id) {
     if (confirm('Eliminare?')) {
         currentItems = currentItems.filter(i => i.id !== id);

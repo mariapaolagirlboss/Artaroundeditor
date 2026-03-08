@@ -1,4 +1,4 @@
-/* 1. RESET BASE */
+
 * {
   margin: 0;
   padding: 0;
@@ -15,7 +15,7 @@ body.admin-layout {
   overflow-x: hidden;
 }
 
-/* 2. NAVBAR SUPERIORE (LA BARRA RITROVATA) */
+/* navbar */
 .top-nav-cards {
   width: 100%;
   display: flex;
@@ -27,7 +27,7 @@ body.admin-layout {
   margin-bottom: 20px;
 }
 
-/* Il contenitore "glass" per i link */
+
 .nav-inner-glass {
   display: flex;
   gap: 12px;
@@ -66,16 +66,16 @@ body.admin-layout {
   transform: translateY(-2px);
 }
 
-/* 3. CONTENUTO CENTRALE SOLLEVATO */
+/* contenuto sollevato */
 .main-viewport {
   width: 100%;
   max-width: 1100px;
-  flex: 1; /* Prende lo spazio rimanente */
+  flex: 1; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Attacca al top */
-  padding-top: 40px; /* Distanza dalla barra */
+  justify-content: flex-start; 
+  padding-top: 40px;
 }
 
 .content-header {
@@ -95,7 +95,7 @@ body.admin-layout {
   font-weight: 300;
 }
 
-/* 4. TOOLBAR (SEARCH + BUTTON) */
+/* barra per cercare e bottone per aggiungere */
 .header-toolbar {
   display: flex;
   align-items: center;
@@ -138,7 +138,7 @@ body.admin-layout {
 
 .btn-primary-glass:hover { transform: translateY(-2px); }
 
-/* 5. GRIGLIA ITEM */
+
 .items-grid {
   width: 100%;
   display: grid;
@@ -147,7 +147,7 @@ body.admin-layout {
   margin-top: 30px;
 }
 
-/* SFONDO MODALE (OSCURAMENTO) */
+/* oscuramento */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -160,7 +160,7 @@ body.admin-layout {
     animation: fadeIn 0.3s ease;
 }
 
-/* CARD VETRO */
+
 .modal-glass-card {
     background: rgba(255, 255, 255, 0.85);
     width: 90%;
@@ -173,14 +173,14 @@ body.admin-layout {
     overflow: hidden;
 }
 
-/* EFFETTO BOLLE VERDI (Come nello screenshot) */
+
 .modal-glass-card::before {
     content: ''; position: absolute; top: -50px; left: -50px;
     width: 200px; height: 200px; background: rgba(34, 197, 94, 0.1);
     border-radius: 50%; filter: blur(30px); z-index: -1;
 }
 
-/* HEADER MODALE */
+
 .modal-glass-header {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 30px; border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -190,7 +190,7 @@ body.admin-layout {
 .modal-glass-header .brand { font-family: 'Playpen Sans'; font-weight: 700; color: #2d5a3d; }
 .modal-glass-header .brand span { font-weight: 300; }
 
-/* GRID FORM */
+
 .form-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
 }
@@ -205,7 +205,7 @@ input, select, textarea {
 
 input:focus { border-color: #22c55e; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1); }
 
-/* BOTTONI */
+/* bottoni */
 .modal-actions {
     display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px;
 }
