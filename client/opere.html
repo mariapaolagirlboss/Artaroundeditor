@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtAround Editor - Item</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="visite.html">Visite</a>
+            <a href="items.html">Item</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Gestione Item</h1>
+        <select id="museoFilter">
+            <option value="">Tutti i musei</option>
+            <!-- Popola dinamicamente -->
+        </select>
+        <button onclick="loadItems()">Carica Item</button>
+        <ul id="itemList"></ul>
+        <form id="itemForm" style="display:none;">
+            <input type="hidden" id="itemId">
+            <label>Opera ID: <input type="text" id="operaId" required></label>
+            <label>Autore ID: <input type="text" id="autoreId"></label>
+            <label>Stile ID: <input type="text" id="stileId"></label>
+            <label>Lunghezza: 
+                <select id="lunghezza">
+                    <option value="3s">3s</option>
+                    <option value="15s">15s</option>
+                    <option value="1min">1min</option>
+                    <option value="4min">4min</option>
+                </select>
+            </label>
+            <label>Linguaggio: 
+                <select id="linguaggio">
+                    <option value="infantile">Infantile</option>
+                    <option value="elementare">Elementare</option>
+                    <option value="medio">Medio</option>
+                    <option value="specialistico">Specialistico</option>
+                </select>
+            </label>
+            <label>Testo: <textarea id="testo" required></textarea></label>
+            <label>Licenza: <input type="text" id="licenza"></label>
+            <button type="submit">Salva Item</button>
+            <button type="button" onclick="cancelEdit()">Annulla</button>
+        </form>
+        <button onclick="newItem()">Nuovo Item</button>
+    </main>
+    <script src="items.js"></script>
+</body>
+</html>

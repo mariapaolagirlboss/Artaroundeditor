@@ -4,44 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ArtAround Editore</title>
-
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;500;600;700&display=swap" 
-        rel="stylesheet">
-
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
   <header class="app-header">
     <div class="header-inner">
       <div class="header-spacer-left"></div>
-
       <h1 class="logo">ArtAround <span>Editore</span></h1>
-
-      <button class="user-icon-btn" type="button">
+      <button class="user-icon-btn" type="button" onclick="alert('Login in arrivo')">
         <i class="fa-solid fa-user"></i>
       </button>
     </div>
   </header>
 
-  <main>
+  <main class="menu-only">
+    <!-- SOLO MENU - niente altro -->
     <nav id="menu-grid">
-      <a href="#" class="nav-card active" data-section="musei">
+      <a href="musei.html" class="nav-card">
         <i class="fa-solid fa-landmark"></i>
         <span class="label">Musei</span>
       </a>
-      <a href="#" class="nav-card" data-section="visite">
+      <a href="visite.html" class="nav-card">
         <i class="fa-solid fa-map"></i>
         <span class="label">Visite</span>
       </a>
-      <a href="#" class="nav-card" data-section="opere">
+      <a href="opere.html" class="nav-card">
         <i class="fa-solid fa-palette"></i>
         <span class="label">Opere</span>
       </a>
-      <a href="#" class="nav-card" data-section="utenti">
+      <a href="utenti.html" class="nav-card">
         <i class="fa-solid fa-user-pen"></i>
         <span class="label">Utenti</span>
       </a>
@@ -51,4 +44,3 @@
   <script src="js/menu.js"></script>
 </body>
 </html>
-
